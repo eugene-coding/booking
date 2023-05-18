@@ -1,3 +1,5 @@
+package pageObjects;
+
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -5,9 +7,8 @@ import org.openqa.selenium.support.ui.LoadableComponent;
 
 import java.util.Random;
 
-import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
-
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -23,7 +24,7 @@ public class IndexPage extends LoadableComponent<IndexPage> {
     private final SelenideElement destinationInput = $(By.id(":Ra9:"));
     private final SelenideElement destinationAutocomplete = $(By.className("a80e7dc237"));
     private final SelenideElement datesContainer = $("div[data-testid=\"searchbox-dates-container\"]");
-    private final SelenideElement datePicker = $("nav[data-testid=\"datepicker-tabs\"");
+    private final SelenideElement datePicker = $("nav[data-testid=\"datepicker-tabs\"]");
     private final ElementsCollection dates = $$("span[class=\"b21c1c6c83\"]");
     private final SelenideElement submitButton = $("button[type=\"submit\"]");
 
@@ -32,7 +33,7 @@ public class IndexPage extends LoadableComponent<IndexPage> {
      *
      * @param city Destination city
      */
-    public SearchResultPage fillForm(String city) throws InterruptedException {
+    public SearchResultPage fillForm(String city) {
         acceptCookies();
         setDestination(city);
         setDates();
@@ -44,7 +45,7 @@ public class IndexPage extends LoadableComponent<IndexPage> {
         cookieBanner.should(visible);
     }
 
-    private void setDestination(String city) throws InterruptedException {
+    private void setDestination(String city) {
         destinationInput.setValue(city);
 
         destinationAutocomplete.should(visible);
@@ -60,7 +61,10 @@ public class IndexPage extends LoadableComponent<IndexPage> {
     }
 
     private void openDatePicker() {
-        datesContainer.click();
+        if (!datePicker.isDisplayed()) {
+            datesContainer.click();
+        }
+
         datePicker.should(visible);
     }
 
