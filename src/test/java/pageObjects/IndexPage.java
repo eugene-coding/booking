@@ -3,6 +3,7 @@ package pageObjects;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.LoadableComponent;
 
 import java.util.Random;
@@ -38,6 +39,15 @@ public class IndexPage extends LoadableComponent<IndexPage> {
         setDestination(city);
         setDates();
         return submit();
+    }
+
+    public boolean isAcceptCookiesBannerAppears() {
+        try {
+            cookieBanner.should(visible);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     private void acceptCookies() {
