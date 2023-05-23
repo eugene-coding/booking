@@ -1,13 +1,15 @@
+package pageObjects;
+
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.LoadableComponent;
 
 import java.util.Random;
 
-import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
-
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -32,11 +34,20 @@ public class IndexPage extends LoadableComponent<IndexPage> {
      *
      * @param city Destination city
      */
-    public SearchResultPage fillForm(String city) throws InterruptedException {
+    public SearchResultPage fillForm(String city) {
         acceptCookies();
         setDestination(city);
         setDates();
         return submit();
+    }
+
+    public boolean isAcceptCookiesBannerAppears() {
+        try {
+            cookieBanner.should(visible);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     private void acceptCookies() {
@@ -44,7 +55,7 @@ public class IndexPage extends LoadableComponent<IndexPage> {
         cookieBanner.should(visible);
     }
 
-    private void setDestination(String city) throws InterruptedException {
+    private void setDestination(String city) {
         destinationInput.setValue(city);
 
         destinationAutocomplete.should(visible);
@@ -60,6 +71,10 @@ public class IndexPage extends LoadableComponent<IndexPage> {
     }
 
     private void openDatePicker() {
+        if (!datePicker.isDisplayed()) {
+            datesContainer.click();
+        }
+
         datePicker.should(visible);
     }
 
