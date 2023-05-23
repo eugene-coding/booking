@@ -60,7 +60,6 @@ public class IndexPage extends LoadableComponent<IndexPage> {
     }
 
     private void openDatePicker() {
-        datesContainer.click();
         datePicker.should(visible);
     }
 
