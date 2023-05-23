@@ -23,7 +23,7 @@ public class IndexPage extends LoadableComponent<IndexPage> {
     private final SelenideElement destinationInput = $(By.id(":Ra9:"));
     private final SelenideElement destinationAutocomplete = $(By.className("a80e7dc237"));
     private final SelenideElement datesContainer = $("div[data-testid=\"searchbox-dates-container\"]");
-    private final SelenideElement datePicker = $("nav[data-testid=\"datepicker-tabs\"");
+    private final SelenideElement datePicker = $("nav[data-testid=\"datepicker-tabs\"]");
     private final ElementsCollection dates = $$("span[class=\"b21c1c6c83\"]");
     private final SelenideElement submitButton = $("button[type=\"submit\"]");
 
